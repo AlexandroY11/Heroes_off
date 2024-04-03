@@ -1,0 +1,8 @@
+.container-fluid {
+    overflow: hidden;
+    background-image: url("./../../../assets/img/justice-league.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 120vh; 
+}
+
