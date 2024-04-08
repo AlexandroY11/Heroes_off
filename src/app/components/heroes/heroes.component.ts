@@ -1,57 +1,33 @@
 import { Component } from '@angular/core';
-import { HeroesService } from '../../services/heroes.service';
-import { HeroeInterface } from '../../interfaces/heroe.interface';
-import { HeroeTarjetaComponent } from '../heroe-tarjeta/heroe-tarjeta.component';
-import { NgFor } from '@angular/common';
 import { HeroesBDService } from '../../services/heroes-bd.service';
+import { HeroeInterface } from '../../interfaces/heroe.interface';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
-  styleUrl: './heroes.component.css'
+  styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent {
-  heroes = [];
+  heroes: HeroeInterface[] = [];
+  cargando: boolean = false;
 
-  // constructor( private data:HeroesService){
-  //   this.heroes = data.getHeroes();
-  //   console.log(this.heroes)
-  // }
-
-
-  cargando:boolean = false;
-
-  constructor( private data:HeroesBDService){
-
-  }
+  constructor(private data: HeroesBDService) {}
 
   async cargarHeroes() {
     this.cargando = true;
-    await this.data
-      .getHeroes()
-      .toPromise()
-      .then((resp: any) => {
-
-        this.heroes = resp.resp;
-
-        // console.log("DATOSNUEVOS", this.infoHeroesBD);
-
-        this.cargando = false;
-      });
+    try {
+      const resp = await this.data.getHeroes().toPromise();
+      console.log('Respuesta de la API:', resp); // Agrega esta línea
+      this.heroes = resp.resp;
+    } catch (error) {
+      console.error('Error al cargar los héroes:', error);
+    } finally {
+      this.cargando = false;
+    }
   }
-
-  async cargarData() {
-    await this.cargarHeroes();
-  }
-
+  
 
   ngOnInit() {
-    this.heroes = this.data.getHeroes();
-
-    this.cargarData();
-
-    console.log( this.heroes );
-
+    this.cargarHeroes();
   }
-
 }

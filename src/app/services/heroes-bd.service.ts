@@ -1,107 +1,41 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL_SERVICIOS_MONGODB } from '../config/url.servicios';
-import { map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroesBDService {
 
-  userToken:any;
+  userToken: any;
 
   constructor(public http: HttpClient) { }
 
-  //Token
-  public leerToken() {
-    if (localStorage.getItem('token')) {
-      this.userToken = localStorage.getItem('token');
-    } else {
-      this.userToken = '';
-    }
-
+  // Obtener el token del usuario
+  public leerToken(): any  {
+    this.userToken = localStorage.getItem('token') || '';
     return this.userToken;
   }
 
-
-//GetHeroes
-getHeroes(): //Observable<Heroe[]>
-  any {
-    var headers_object = new HttpHeaders().set('x-token', this.leerToken());
-
-    //console.log(headers_object);
-
-    //let url1 = URL_SERVICIOS_MONGODB + "/heroes";
-
-    let url = `${URL_SERVICIOS_MONGODB}/heroes`;
-
-    //console.log(url);
-
-    return this.http.get(url).pipe(
-      map((data) => {
-        console.log(data);
-        return data;
-      })
-    );
+  // Obtener todos los héroes
+  getHeroes(): Observable<any> {
+    const headers = new HttpHeaders().set('x-token', this.leerToken());
+    const url = `${URL_SERVICIOS_MONGODB}/heroes`;
+    return this.http.get(url, { headers });
   }
 
-  getHeroe(id:any):any{
-    var headers_object = new HttpHeaders().set('x-token', this.leerToken());
-
-    //console.log(headers_object);
-
-    //let url1 = URL_SERVICIOS_MONGODB + "/heroes";
-
-    let url = `${URL_SERVICIOS_MONGODB}/heroes/${id}`;
-
-    //console.log(url);
-
-    return this.http.get(url).pipe(
-      map((data) => {
-        console.log(data);
-        return data;
-      })
-    );
-  }
-  
-  buscarHeroes(id:any):any{
-    var headers_object = new HttpHeaders().set('x-token', this.leerToken());
-
-    //console.log(headers_object);
-
-    //let url1 = URL_SERVICIOS_MONGODB + "/heroes";
-
-    let url = `${URL_SERVICIOS_MONGODB}/multimedias/fotos/${id}`;
-
-    //console.log(url);
-
-    return this.http.get(url).pipe(
-      map((data) => {
-        console.log(data);
-        return data;
-      })
-    );
-  }
-  
-  buscarFotosHeroe(id:any):any {
-    var headers_object = new HttpHeaders().set('x-token', this.leerToken());
-
-    //console.log(headers_object);
-
-    //let url1 = URL_SERVICIOS_MONGODB + "/heroes";
-
-    let url = `${URL_SERVICIOS_MONGODB}/multimedias/fotos/${id}`;
-
-    //console.log(url);
-
-    return this.http.get(url).pipe(
-      map((data) => {
-        console.log(data);
-        return data;
-      })
-    );
+  // Obtener un héroe por su ID
+  getHeroe(id: string): Observable<any> {
+    const headers = new HttpHeaders().set('x-token', this.leerToken());
+    const url = `${URL_SERVICIOS_MONGODB}/heroes/${id}`;
+    return this.http.get(url, { headers });
   }
 
-  
-
+  // Obtener las fotos de un héroe por su ID
+  getFotosHeroe(id: string): Observable<any> {
+    const headers = new HttpHeaders().set('x-token', this.leerToken());
+    const url = `${URL_SERVICIOS_MONGODB}/multimedias/heroe/${id}`;
+    return this.http.get(url, { headers });
+  }
 }

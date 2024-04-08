@@ -13,11 +13,12 @@ export class HeroeTarjetaComponent {
   constructor(private router: Router) {
   }
 
-  verHeroe(id:number){
+  verHeroe(id: string) {
     this.router.navigate(['/heroe', id]);
   }
-
-  verFotosHeroe(id:number) {
+  
+  verFotosHeroe(id: string) {
     this.router.navigate(['/fotos', id]);
   }
+  
 }

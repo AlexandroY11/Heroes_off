@@ -13,7 +13,7 @@ export class FotosHeroesComponent {
   fotosHeroes:FotosHeroeInterface[] = [];
 
   constructor( private data:FotosHeroeService){
-    this.fotosHeroes = data.getFotosHeroes();
-    console.log(this.fotosHeroes)
+    // this.fotosHeroes = data.getFotosHeroes();
+    // console.log(this.fotosHeroes)
   }
 }

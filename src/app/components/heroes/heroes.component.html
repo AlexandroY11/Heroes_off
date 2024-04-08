@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="text-center text-white">Heroes de DC Cómics y Marvel</h1>
         <div class="row">
-            <div *ngFor="let heroe of heroes; let i = index" class="col">
+            <div *ngFor="let heroe of heroes" class="col">
                 <app-heroe-tarjeta [heroe]="heroe"></app-heroe-tarjeta>
             </div>
         </div>
