@@ -4,13 +4,10 @@
             <h2 class="text-center">Fotos de {{ nombreHeroe }}</h2>
             <div *ngFor="let foto of fotos" class="col">
                 <div class="card" style="width: 18rem;">
-                    <img [src]="foto.url" class="img-fluid" alt="{{ foto.nombreHeroe }}">
+                    <img [src]="foto.url" class="img-fluid" alt="{{ nombreHeroe }}">
                 </div>
             </div>
         </div>
         <a [routerLink]="['/heroes']" class="btn btn-danger">Regresar</a>
     </div>
 </div>
-
-
-

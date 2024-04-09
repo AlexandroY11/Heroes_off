@@ -9,8 +9,8 @@ import { FotosHeroeService } from '../../services/fotos-heroe.service';
   styleUrls: ['./fotos-heroe.component.css']
 })
 export class FotosHeroeComponent implements OnInit {
-  idHeroe!: string;
-  nombreHeroe!: string;
+  idHeroe: any;
+  nombreHeroe: any;
   fotos: FotosHeroeInterface[] = [];
 
   constructor(
@@ -28,10 +28,25 @@ export class FotosHeroeComponent implements OnInit {
 
   async cargarFotosHeroe(idHeroe: string) {
     try {
-      this.fotos = await this.fotosHeroeService.getFotosHeroes(idHeroe).toPromise();
-      this.nombreHeroe = this.fotos.length > 0 ? this.fotos[0].nombreHeroe : ''; 
+      const response = await this.fotosHeroeService.getFotosHeroes(idHeroe).toPromise();
+      if (response && response.length > 0) {
+        this.fotos = response.map((item: any) => {
+          return {
+            id: item._id,
+            idHeroe: item.IdHeroe?._id || '', 
+            nombreHeroe: item.IdHeroe?.nombre || '', 
+            url: item.IdMultimedia?.url || '' 
+          };
+        });
+        this.nombreHeroe = this.fotos.length > 0 ? this.fotos[0].nombreHeroe : ''; 
+      } else {
+        console.error('Error al cargar las fotos del héroe:', response);
+      }
     } catch (error) {
       console.error('Error al cargar las fotos del héroe:', error);
     }
   }
+  
+  
+  
 }
