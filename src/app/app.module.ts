@@ -14,6 +14,7 @@ import { FotosTarjetaComponent } from './components/fotos-tarjeta/fotos-tarjeta.
 import { FotosHeroesComponent } from './components/fotos-heroes/fotos-heroes.component';
 import { FotosHeroeComponent } from './components/fotos-heroe/fotos-heroe.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ListHeroesComponent } from './components/list-heroes/list-heroes.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     FotosTarjetaComponent,
     FotosHeroesComponent,
     FotosHeroeComponent,
+    ListHeroesComponent,
   ],
   imports: [
     BrowserModule,
