@@ -7,6 +7,8 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { FotosHeroesComponent } from './components/fotos-heroes/fotos-heroes.component';
 import { FotosHeroeComponent } from './components/fotos-heroe/fotos-heroe.component';
+import { ListaHeroesComponent } from './components/lista-heroes/lista-heroes.component';
+import { EditarHeroeComponent } from './components/editar-heroe/editar-heroe.component';
 
 const routes: Routes = [
     { path: 'hogar', component: HomeComponent },
@@ -16,6 +18,8 @@ const routes: Routes = [
     { path: 'heroe/:id', component: HeroeComponent},
     { path: 'galeria', component: FotosHeroesComponent},
     { path: 'fotos/:id', component: FotosHeroeComponent},
+    { path: 'lista-heroes', component: ListaHeroesComponent},
+    { path: 'editar-heroe/:idheroe', component: EditarHeroeComponent},
     // { path: 'buscar/:termino', component: BuscadorComponent},
     
     { path: '**', pathMatch: 'full', redirectTo: 'home' }
