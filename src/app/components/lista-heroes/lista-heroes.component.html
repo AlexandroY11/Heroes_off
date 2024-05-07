@@ -37,7 +37,14 @@
                         <i class="fa fa-edit"></i>
                         Editar
                     </button>
-                    <button class="btn btn-danger">Eliminar</button>
+                    <button
+                        (click)="eliminarHeroe(heroe)"
+                        type="button"
+                        class="btn btn-danger btn-block"
+                    >
+                        <i class="fa fa-trash"></i>
+                        Eliminar
+                    </button>
                 </td>
             </tr>
         </tbody>
