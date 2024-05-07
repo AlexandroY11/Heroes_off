@@ -15,6 +15,8 @@ import { FotosHeroesComponent } from './components/fotos-heroes/fotos-heroes.com
 import { FotosHeroeComponent } from './components/fotos-heroe/fotos-heroe.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ListHeroesComponent } from './components/list-heroes/list-heroes.component';
+import { EditHeroesComponent } from './components/edit-heroes/edit-heroes.component';
+import { FormsModule } from '@angular/forms'; // Importa FormsModule
 
 @NgModule({
   declarations: [
@@ -30,12 +32,14 @@ import { ListHeroesComponent } from './components/list-heroes/list-heroes.compon
     FotosHeroesComponent,
     FotosHeroeComponent,
     ListHeroesComponent,
+    EditHeroesComponent,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule // Agrega FormsModule aquí
   ],
   providers: [],
   bootstrap: [AppComponent]
