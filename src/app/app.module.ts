@@ -17,6 +17,8 @@ import { FotosHeroeComponent } from './components/fotos-heroe/fotos-heroe.compon
 import { HttpClientModule } from '@angular/common/http';
 import { ListaHeroesComponent } from './components/lista-heroes/lista-heroes.component';
 import { EditarHeroeComponent } from './components/editar-heroe/editar-heroe.component';
+import { ListaMultimediaComponent } from './lista-multimedia/lista-multimedia.component';
+import { EditarMultimediaComponent } from './editar-multimedia/editar-multimedia.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,8 @@ import { EditarHeroeComponent } from './components/editar-heroe/editar-heroe.com
     FotosHeroeComponent,
     ListaHeroesComponent,
     EditarHeroeComponent,
+    ListaMultimediaComponent,
+    EditarMultimediaComponent,
   ],
   imports: [
     BrowserModule,

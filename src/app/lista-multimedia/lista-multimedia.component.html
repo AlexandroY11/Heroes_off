@@ -1,10 +1,10 @@
 <div class="container" style="padding-top: 20px;">
-    <h1>Lista de Heroes (CRUD)</h1>
+    <h1>Lista de Multimedia (CRUD)</h1>
 
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group" role="group" aria-label="Third group">
-            <button [routerLink]="['/editar-heroe', 'nuevo']" type="button" class="btn btn-outline-success">
-                <i class="fa fa-plus"></i>Nuevo Heroe
+            <button [routerLink]="['/editar-multimedia', 'nuevo']" type="button" class="btn btn-outline-success">
+                <i class="fa fa-plus"></i>Nuevo Multimedia
             </button>
         </div>
     </div>
@@ -13,9 +13,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Bio</th>
-                <th scope="col">Casa</th>
-                <th scope="col">Aparición</th>
                 <th scope="col">Img</th>
                 <th scope="col">Acción</th>
             </tr>
@@ -24,16 +21,13 @@
             <tr *ngFor="let heroe of Heroes; let i = index">
                 <th scope="row">{{i+1}}</th>
                 <td>{{heroe.nombre}}</td>
-                <td>{{heroe.bio}}</td>
-                <td>{{heroe.casa}}</td>
-                <td>{{heroe.aparicion}}</td>
                 <td><img [src]="heroe.img" class="img-thumb" alt="..."></td>
                 <td>
-                    <button (click)="editarHeroe(heroe._id)" type="button" class="btn btn-warning btn-block">
+                    <button (click)="editarMultimedia(heroe._id)" type="button" class="btn btn-warning btn-block">
                         <i class="fa fa-edit"></i>
                         Editar
                     </button>
-                    <button (click)="eliminarHeroe(heroe)" type="button" class="btn btn-danger btn-block">
+                    <button (click)="eliminarMultimedia(heroe)" type="button" class="btn btn-danger btn-block">
                         <i class="fa fa-trash"></i>
                         Eliminar
                     </button>
