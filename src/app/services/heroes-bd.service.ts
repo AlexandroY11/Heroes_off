@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL_SERVICIOS_MONGODB } from '../config/url.servicios';
-import { HeroeInterface } from '../interfaces/heroe.interface';
 import { Observable, map } from 'rxjs';
+import { HeroeInterface } from '../interfaces/heroe.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +54,15 @@ export class HeroesBDService {
         })
       );
     }
+
+    /*
+    nombre: string;
+    bio: string;
+    img: string;
+    aparicion: string;
+    casa: string;
+    _id?: string;
+    */
     if (unaAccion === 'insertar') {
       let parametros2 = new HttpParams();
       let url = URL_SERVICIOS_MONGODB + '/heroes';

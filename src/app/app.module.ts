@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -14,10 +15,8 @@ import { FotosTarjetaComponent } from './components/fotos-tarjeta/fotos-tarjeta.
 import { FotosHeroesComponent } from './components/fotos-heroes/fotos-heroes.component';
 import { FotosHeroeComponent } from './components/fotos-heroe/fotos-heroe.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ListHeroesComponent } from './components/list-heroes/list-heroes.component';
-import { EditHeroesComponent } from './components/edit-heroes/edit-heroes.component';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
-
+import { ListaHeroesComponent } from './components/lista-heroes/lista-heroes.component';
+import { EditarHeroeComponent } from './components/editar-heroe/editar-heroe.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,15 +30,15 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule
     FotosTarjetaComponent,
     FotosHeroesComponent,
     FotosHeroeComponent,
-    ListHeroesComponent,
-    EditHeroesComponent,
+    ListaHeroesComponent,
+    EditarHeroeComponent,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule // Agrega FormsModule aquí
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
