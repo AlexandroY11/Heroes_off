@@ -1,0 +1,28 @@
+<div class="container" style="padding-top: 20px;">
+    <h1>Lista de Multimedias de {{nombreHeroe}}</h1>
+    
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group" role="group" aria-label="Third group">
+            <button [routerLink]="['/editar-multimedia-heroe', 'nuevo']" type="button" class="btn btn-outline-success">
+                <i class="fa fa-plus"></i>Nueva Multimedia de Heroe
+            </button>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Imagen</th>
+                <!-- <th scope="col">Acción</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let multimedia of multimedias; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>
+                    <img *ngIf="multimedia.IdMultimedia.url" [src]="multimedia.IdMultimedia.url" style="max-height: 100px;">
+                </td>  
+            </tr>
+        </tbody>
+    </table>
+</div>

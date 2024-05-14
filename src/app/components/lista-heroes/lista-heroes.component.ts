@@ -42,6 +42,10 @@ export class ListaHeroesComponent {
 
   }
 
+  verMultimedias(idHeroe:any){
+    this.router.navigate(['/multimedias-heroe', idHeroe]);
+  }
+
   editarHeroe(idHeroe:any){
     this.router.navigate(['/editar-heroe', idHeroe]);
   }
