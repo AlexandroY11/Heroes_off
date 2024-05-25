@@ -9,6 +9,10 @@ import { FotosHeroesComponent } from './components/fotos-heroes/fotos-heroes.com
 import { FotosHeroeComponent } from './components/fotos-heroe/fotos-heroe.component';
 import { ListaHeroesComponent } from './components/lista-heroes/lista-heroes.component';
 import { EditarHeroeComponent } from './components/editar-heroe/editar-heroe.component';
+import { ListaMultimediasComponent } from './components/lista-multimedias/lista-multimedias.component';
+import { EditarMultimediasComponent } from './components/editar-multimedias/editar-multimedias.component';
+import { MultimediasHeroeComponent } from './components/multimedias-heroe/multimedias-heroe.component';
+import { EditarMultimediasHeroeComponent } from './components/editar-multimedias-heroe/editar-multimedias-heroe.component';
 
 const routes: Routes = [
   { path: 'hogar', component: HomeComponent },
@@ -20,6 +24,11 @@ const routes: Routes = [
   { path: 'fotos/:id', component: FotosHeroeComponent },
   { path: 'lista-heroes', component: ListaHeroesComponent },
   { path: 'editar-heroe/:idheroe', component: EditarHeroeComponent },
+  { path: 'lista-multimedias', component: ListaMultimediasComponent },
+  { path: 'editar-multimedia/:idheroe', component: EditarMultimediasComponent },
+  { path: 'multimedias-heroe/:idHeroe', component: MultimediasHeroeComponent },
+  { path: 'editar-multimedia-heroe/:idHeroe', component: EditarMultimediasHeroeComponent },
+
   // { path: 'buscar/:termino', component: BuscadorComponent},
 
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
