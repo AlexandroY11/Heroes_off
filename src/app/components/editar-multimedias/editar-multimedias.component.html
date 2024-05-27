@@ -1,13 +1,30 @@
 <div class="container">
-    <h1>{{ multimedia._id ? 'Editar Multimedia' : 'Crear Multimedia' }}</h1>
-    <form (ngSubmit)="guardarCambios()" #form="ngForm">
+    <p>heroe-edit works!</p>
+
+    <form (ngSubmit)="guardar()" #forma="ngForm">
         <div class="form-group">
-            <label for="url">URL:</label>
-            <input type="text" class="form-control" id="url" name="url" [(ngModel)]="multimedia.url" required>
+            <label><b>ID</b></label>
+            <input [(ngModel)]="unHeroe._id" name="id" type="text" class="form-control" placeholder="Id" required
+                disabled />
         </div>
+
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+            <label><b>Nombre</b></label>
+            <input [(ngModel)]="unHeroe.url" name="url" type="text" class="form-control" placeholder="url" required />
         </div>
+
+        <div class="col-50">
+            <label><b>Grupo ID</b></label>
+            <select [(ngModel)]="unHeroe.IdGrupoMultimedia._id" name="_id" class="form-control" id="imagen" required>
+                <option value="">Seleccione una Multimedia</option>
+                <option *ngFor="let multimedia of unGrupo" [value]="multimedia._id">
+                    {{ multimedia._id }}
+                </option>
+            </select>
+        </div>
+
+        <button [disabled]="!forma.valid" type="submit" class="btn btn-primary">
+            Submit
+        </button>
     </form>
 </div>

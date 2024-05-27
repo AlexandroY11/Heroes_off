@@ -1,169 +1,155 @@
-// import { Component, OnInit } from '@angular/core';
-// import { ActivatedRoute, Router } from '@angular/router';
-// import { HeroesBDService } from '../../services/heroes-bd.service';
-// import { MultimediasInterface } from '../../interfaces/multimedias';
-// import Swal from 'sweetalert2';
-
-// @Component({
-//   selector: 'app-editar-multimedias',
-//   templateUrl: './editar-multimedias.component.html',
-//   styleUrl: './editar-multimedias.component.css'
-// })
-
-// export class EditarMultimediasComponent implements OnInit {
-//   multimedia: MultimediasInterface = {
-//     _id: '',
-//     url: '',
-//     tipo: '',
-//     estado: false,
-//     IdGrupoMultimedia: {
-//       _id: '',
-//       nombre: ''
-//     },
-//     usuario: {
-//       nombre: '',
-//       _id: ''
-//     },
-//     fecha_creacion: '',
-//     fecha_actualizacion: ''
-//   };
-
-//   constructor(
-//     private route: ActivatedRoute,
-//     private router: Router,
-//     private dataBD: HeroesBDService
-//   ) { }
-
-//   ngOnInit(): void {
-//     const id = this.route.snapshot.paramMap.get('id');
-//     if (id) {
-//       this.cargarMultimedia(id);
-//     }
-//   }
-
-//   cargarMultimedia(id: string): void {
-//     this.dataBD.getMultimedia(id).subscribe((data: any) => {
-//       this.multimedia = data.resp;
-//     });
-//   }
-
-//   guardarCambios(): void {
-//     this.dataBD.crud_Multimedias(this.multimedia, 'modificar').subscribe((res: any) => {
-//       if (res.Ok) {
-//         Swal.fire({
-//           icon: 'success',
-//           title: 'Guardado',
-//           text: 'Cambios guardados exitosamente!'
-//         }).then(() => {
-//           this.router.navigate(['/lista-multimedia']);
-//         });
-//       } else {
-//         console.error('Error al guardar los cambios:', res.msg);
-//         Swal.fire({
-//           icon: 'error',
-//           title: 'Error',
-//           text: 'Error al guardar los cambios. Por favor, inténtelo de nuevo.'
-//         });
-//       }
-//     });
-//   }
-
-//   cancelar(): void {
-//     // Redirigir a la lista de multimedia sin guardar cambios
-//     this.router.navigate(['/lista-multimedias']);
-//   }
-// }
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HeroesBDService } from '../../services/heroes-bd.service';
-import { MultimediasInterface } from '../../interfaces/multimedias';
 import Swal from 'sweetalert2';
+import { HeroesBDService } from '../../services/heroes-bd.service';
+import { multimedia } from '../../interfaces/multimedia.interface';
+import { MultheroeService } from '../../services/multheroe.service';
+import { grupoM } from '../../interfaces/grupoM.interface';
 
 @Component({
-  selector: 'app-editar-multimedias',
+  selector: 'app-edit-multimedias',
   templateUrl: './editar-multimedias.component.html',
-  styleUrls: ['./editar-multimedias.component.css']
+  styleUrls: ['./editar-multimedias.component.css'],
 })
-export class EditarMultimediasComponent implements OnInit {
-  multimedia: MultimediasInterface = {
-    _id: '',
+export class EditarMultimediasComponent {
+  idHeroe!: any;
+  _idGr!: any;
+  unGrupo: grupoM[] = [];
+  unHeroe: multimedia = {
     url: '',
     tipo: '',
-    estado: false,
+    estado: '',
     IdGrupoMultimedia: {
       _id: '',
-      nombre: ''
-    },
-    usuario: {
       nombre: '',
-      _id: ''
     },
+    usuario: '',
     fecha_creacion: '',
-    fecha_actualizacion: ''
+    fecha_actualizacion: '',
   };
 
+  unResultado!: any;
+  unaAccion: string = 'Mensaje';
+  unMensaje: string = '';
+
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private dataBD: HeroesBDService
-  ) { }
+    private dataBD: HeroesBDService,
+    private dataMUlt: MultheroeService
+  ) {
+    this.activatedRoute.params.subscribe((params) => {
+      this.idHeroe = params['idHeroe'];
+      console.log('IDHEROE', this.idHeroe);
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id && id !== 'nuevo') {
-      this.cargarMultimedia(id);
-    }
-  }
-
-  cargarMultimedia(id: string): void {
-    this.dataBD.getMultimedia(id).subscribe((data: any) => {
-      this.multimedia = data.resp;
+      if (this.idHeroe != 'nuevo') {
+        console.log('Entre a el proceso 1');
+        this.cargarHeroeBD();
+      }
+      this.cargaCombo();
+      console.log(this.unHeroe);
     });
   }
 
-  guardarCambios(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id === 'nuevo') {
-      this.dataBD.crud_Multimedias(this.multimedia, 'insertar').subscribe((res: any) => {
-        if (res.Ok) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Guardado',
-            text: 'Multimedia agregado exitosamente!'
-          }).then(() => {
-            this.router.navigate(['/lista-multimedia']);
-          });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: res.msg
-          });
-        }
+  async cargaCombo() {
+    await this.dataBD
+      .getGrupoMultimedias()
+      .toPromise()
+      .then((data: any) => {
+        this.unGrupo = data.resp;
       });
+    console.log('Este es el grupo  ' + this.unGrupo);
+  }
+  async cargarHeroeBD() {
+    //this.cargando = true;
+    console.log('Entre a el proceso 2');
+    await this.dataBD
+      .getMult(this.idHeroe)
+      .toPromise()
+      .then((data: any) => {
+        this.unHeroe = data.resp;
+      });
+    console.log('Este es la mult ' + this.unHeroe);
+  }
+
+  guardar() {
+    console.log('Se envio Guardar');
+    let combo: any = document.getElementById('imagen');
+
+    let texto: any = combo.options[combo.selectedIndex].text;
+
+    this.unHeroe.IdGrupoMultimedia._id = texto;
+    if (this.idHeroe == 'nuevo') {
+      console.log('entre a nuevo');
+      console.log(this.unHeroe.url);
+      console.log(this.unHeroe.IdGrupoMultimedia._id);
+      this.nuevoMult();
     } else {
-      this.dataBD.crud_Multimedias(this.multimedia, 'modificar').subscribe((res: any) => {
-        if (res.Ok) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Guardado',
-            text: 'Cambios guardados exitosamente!'
-          }).then(() => {
-            this.router.navigate(['/lista-multimedia']);
-          });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: res.msg
-          });
-        }
-      });
+      this.actualizarMult();
     }
   }
 
-  cancelar(): void {
-    // Redirigir a la lista de multimedia sin guardar cambios
-    this.router.navigate(['/lista-multimedias']);
+  actualizarMult() {
+    //console.log(this.unaDivision);
+    this.dataMUlt.crud_Multimedias(this.unHeroe, 'modificar').subscribe(
+      (res: any) => {
+        this.unResultado = res;
+
+        console.log('RESULTADO_ACTUALIZAR', this.unResultado);
+
+        if (this.unResultado.Ok == true) {
+          this.unaAccion = 'Mensaje:';
+          this.unMensaje = this.unResultado.msg;
+          setTimeout(() => (this.unMensaje = ''), 3000);
+
+          Swal.fire({
+            icon: 'info',
+            title: 'Information',
+            text: this.unResultado.msg,
+          });
+
+          this.router.navigate(['/listamultimedias']);
+        } else {
+          this.unaAccion = 'Error:';
+          this.unMensaje = this.unResultado.error.msg;
+          setTimeout(() => (this.unMensaje = ''), 3000);
+        }
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+
+  async nuevoMult() {
+    console.log('entre al metodo');
+    await this.dataMUlt.crud_Multimedias(this.unHeroe, 'insertar').subscribe(
+      (res: any) => {
+        this.unResultado = res;
+
+        console.log('RESULTADO_NUEVO', this.unResultado);
+
+        if (this.unResultado.Ok == true) {
+          this.unaAccion = 'Mensaje: multimedia creada';
+          this.unMensaje = this.unResultado.msg;
+          setTimeout(() => (this.unMensaje = ''), 3000);
+
+          Swal.fire({
+            icon: 'info',
+            title: 'Information',
+            text: this.unResultado.msg,
+          });
+
+          this.router.navigate(['/listamultimedias']);
+        } else {
+          this.unaAccion = 'Error:';
+          this.unMensaje = this.unResultado.msg;
+          setTimeout(() => (this.unMensaje = ''), 3000);
+        }
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
   }
 }

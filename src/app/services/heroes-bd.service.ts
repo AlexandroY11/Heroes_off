@@ -9,6 +9,7 @@ import { MultimediasInterface } from '../interfaces/multimedias';
   providedIn: 'root'
 })
 export class HeroesBDService {
+  [x: string]: any;
 
   userToken: any;
 
@@ -46,8 +47,8 @@ export class HeroesBDService {
     const url = `${URL_SERVICIOS_MONGODB}/multimedias/heroe/${id}`;
     return this.http.get(url, { headers });
   }
-  
-  
+
+
 
   crud_Heroes(unHeroe: HeroeInterface, unaAccion: string): any {
     //console.log(unExpediente);
@@ -191,7 +192,7 @@ export class HeroesBDService {
         })
       );
     }
-  
+
     if (unaAccion === 'insertar') {
       const url = `${URL_SERVICIOS_MONGODB}/multimedias`;
       const body = {
@@ -208,7 +209,7 @@ export class HeroesBDService {
       };
       return this.http.post(url, body).pipe(map((data) => data));
     }
-  
+
     if (unaAccion === 'modificar') {
       const url = `${URL_SERVICIOS_MONGODB}/multimedias/`;
       const body = {
