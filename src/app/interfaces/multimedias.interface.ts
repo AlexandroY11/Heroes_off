@@ -1,19 +1,15 @@
 export interface MultimediasInterface {
-    _id: string;
+    _id?: string;
     url: string;
     tipo: string;
-    estado: boolean;
+    estado: string;
     IdGrupoMultimedia: {
         _id: string;
         nombre: string;
-    };    
-    usuario: {
-        nombre: string;
-        _id: string;
     };
+    usuario: string;
     fecha_creacion: string;
     fecha_actualizacion: string;
-
 }
 
 export interface MultimediasHeroeInterface {
@@ -28,3 +24,9 @@ export interface MultimediasHeroeInterface {
     fecha_creacion: string;
     _id: string;
 }
+
+export interface MultimediaHeroe{
+    _id?: string;
+    IdHeroe: string;
+    IdMultimedia: string;
+};  

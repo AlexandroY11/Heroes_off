@@ -25,7 +25,7 @@ const routes: Routes = [
     { path: 'lista-heroes', component: ListaHeroesComponent},
     { path: 'editar-heroe/:idheroe', component: EditarHeroeComponent},
     { path: 'lista-multimedias', component: ListaMultimediasComponent},
-    { path: 'editar-multimedia/:idheroe', component:EditarMultimediasComponent},
+    { path: 'editar-multimedia/:id', component:EditarMultimediasComponent},
     { path: 'multimedias-heroe/:idHeroe', component: MultimediasHeroeComponent },
     { path: 'editar-multimedia-heroe/:idHeroe', component: EditarMultimediasHeroeComponent },
 

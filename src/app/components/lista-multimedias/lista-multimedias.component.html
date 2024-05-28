@@ -23,7 +23,7 @@
                     <img *ngIf="multimedia.url" [src]="multimedia.url" style="max-height: 100px;">
                 </td>                  
                 <td>
-                    <button type="button" class="btn btn-warning btn-block" (click)="editarMultimedia(multimedia._id)">
+                    <button  *ngIf="multimedia._id" type="button" class="btn btn-warning btn-block" (click)="editarMultimedia(multimedia._id)">
                     <i class="fa fa-edit"></i> Editar
                     </button>
                     <button type="button" class="btn btn-danger btn-block" (click)="eliminarMultimedia(multimedia)">
