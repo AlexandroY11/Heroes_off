@@ -51,48 +51,59 @@ export class ListaHeroesComponent {
   }
 
   eliminarHeroe(unHeroe: any) {
-    //console.log(this.unaDivision);
-    this.dataBD.crud_Heroes(unHeroe, 'eliminar').subscribe(
-      (res: any) => {
-        this.unResultado = res;
-
-        //console.log(this.unResultado);
-        if (this.unResultado.Ok == true) {
-
-          Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: 'Heroe Eliminado',
-          });
-
-          this.unaAccion = 'Mensaje:';
-          this.unMensaje = 'Heroe Eliminado';
-          setTimeout(() => (this.unMensaje = ''), 3000);
-
-
-          this.cargarHeroesBD() ;
-
-        } else {
-          Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: this.unResultado.msg,
-          });
-    
-
-          this.unaAccion = 'Error:';
-          this.unMensaje = this.unResultado.msg;
-          setTimeout(() => (this.unMensaje = ''), 3000);
-        }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.dataBD.crud_Heroes(unHeroe, 'eliminar').subscribe(
+          (res: any) => {
+            this.unResultado = res;
+  
+            if (this.unResultado.Ok == true) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Héroe eliminado',
+                text: 'El héroe ha sido eliminado correctamente',
+                timer: 5000, // Establece un temporizador de 5 segundos
+                timerProgressBar: true, // Muestra una barra de progreso para el temporizador
+                didOpen: () => {
+                  Swal.showLoading();
+                },
+              }).then(() => {
+                // Esto se ejecuta después de que el usuario cierre el alert de SweetAlert
+                this.cargarHeroesBD(); // Recargar la lista de héroes
+              });
+  
+              this.unaAccion = 'Mensaje:';
+              this.unMensaje = 'Héroe Eliminado';
+              setTimeout(() => (this.unMensaje = ''), 3000);
+  
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error al eliminar el héroe',
+                text: this.unResultado.msg,
+              });
+  
+              this.unaAccion = 'Error:';
+              this.unMensaje = this.unResultado.msg;
+              setTimeout(() => (this.unMensaje = ''), 3000);
+            }
+          },
+          (error: any) => {
+            console.error(error);
+          }
+        );
       }
-      ,(error:any) => {
-        console.error(error)
-      }
-    );
+    });
   }
+  
 
-
-  editarFotos(unHeroe:any){
-    
-  }
 }

@@ -178,7 +178,7 @@ export class EditarMultimediasHeroeComponent {
 
             Swal.fire({
               icon: 'success',
-              title: 'Multimedia creada',
+              title: 'Relación de multimedia creada',
               text: "Credo exitosamente",
             });
 

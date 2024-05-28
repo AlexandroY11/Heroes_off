@@ -44,46 +44,58 @@ export class MultimediasHeroeComponent implements OnInit {
     });
   }
 
-  eliminarMult(unIdHeroe:any) {
-    console.log("ID A BORRAR: "+unIdHeroe);
-    this.data.crud_multimediasHeroes(unIdHeroe, 'eliminar').subscribe(
-      (res: any) => {
-        this.unResultado = res;
-
-        //console.log(this.unResultado);
-        if (this.unResultado.Ok == true) {
-
-          Swal.fire({
-            icon: 'success',
-            title: 'Information',
-            text: 'Eliminado correctamente',
-          });
-
-          this.unaAccion = 'Mensaje:';
-          this.unMensaje = 'Heroe Eliminado';
-          setTimeout(() => (this.unMensaje = ''), 3000);
-
-
-          this.ngOnInit() ;
-
-        } else {
-          Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: this.unResultado.msg,
-          });
-
-
-          this.unaAccion = 'Error:';
-          this.unMensaje = this.unResultado.msg;
-          setTimeout(() => (this.unMensaje = ''), 3000);
-        }
+  eliminarMult(unIdHeroe: any) {
+    Swal.fire({
+      title: '¿Estás seguro  de eliminar la multimedia?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.data.crud_multimediasHeroes(unIdHeroe, 'eliminar').subscribe(
+          (res: any) => {
+            this.unResultado = res;
+  
+            if (this.unResultado.Ok == true) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Multimedia eliminada',
+                text: 'Multimedia eliminada correctamente',
+                timer: 5000, // Establece un temporizador de 5 segundos
+                timerProgressBar: true, // Muestra una barra de progreso para el temporizador
+                didOpen: () => {
+                  Swal.showLoading();
+                },
+              }).then(() => {
+                // Esto se ejecuta después de que el usuario cierre el alert de SweetAlert
+                location.reload(); // Recargar la página
+              });
+  
+              this.ngOnInit();
+            } else {
+              Swal.fire({
+                icon: 'info',
+                title: 'Information',
+                text: this.unResultado.msg,
+              });
+  
+              this.unaAccion = 'Error:';
+              this.unMensaje = this.unResultado.msg;
+              setTimeout(() => (this.unMensaje = ''), 3000);
+            }
+          },
+          (error: any) => {
+            console.error(error);
+          }
+        );
       }
-      ,(error:any) => {
-        console.error(error)
-      }
-    );
+    });
   }
+  
 
   editarMult(unIdHeroe:any){
     this.router.navigate(['/editar-multimedia-heroe', unIdHeroe]);

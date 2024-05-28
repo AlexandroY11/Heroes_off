@@ -87,9 +87,9 @@ export class EditarHeroeComponent {
           setTimeout(() => (this.unMensaje = ''), 3000);
 
           Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: this.unResultado.msg,
+            icon: 'success',
+            title: 'Héroe actualizado',
+            text: "Actualizado correctamente",
           });
 
           this.router.navigate(['/heroes']);
@@ -114,9 +114,9 @@ export class EditarHeroeComponent {
 
         if (this.unResultado.Ok == true) {
           Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: this.unResultado.msg,
+            icon: 'success',
+            title: 'Héroe creado',
+            text: "Creado correctamente",
           });
 
           this.unaAccion = 'Mensaje:';

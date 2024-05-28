@@ -45,38 +45,52 @@ cargarMultimediasBD() {
   }
 
   eliminarMultimedia(unHeroe: any) {
-    this.data.crud_Multimedias(unHeroe, 'eliminar').subscribe(
-      (res: any) => {
-        this.unResultado = res;
-        if (this.unResultado.Ok == true) {
-
-          Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: 'Multimedia Eliminado',
-          });
-          this.unaAccion = 'Mensaje:';
-          this.unMensaje = 'Multimedia Eliminada';
-          setTimeout(() => (this.unMensaje = ''), 5000);
-          location. reload()
-
-        } else {
-          Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: this.unResultado.msg,
-          });
-          
-
-          this.unaAccion = 'Error:';
-          this.unMensaje = this.unResultado.msg;
-          setTimeout(() => (this.unMensaje = ''), 3000);
-        }
+    Swal.fire({
+      title: '¿Estás seguro de eliminar la multimedia?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.data.crud_Multimedias(unHeroe, 'eliminar').subscribe(
+          (res: any) => {
+            this.unResultado = res;
+            if (this.unResultado.Ok == true) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Multimedia eliminada',
+                text: 'Multimedia eliminada correctamente',
+                timer: 5000, // Establece un temporizador de 5 segundos
+                timerProgressBar: true, // Muestra una barra de progreso para el temporizador
+                didOpen: () => {
+                  Swal.showLoading();
+                },
+              }).then(() => {
+                // Esto se ejecuta después de que el usuario cierre el alert de SweetAlert
+                location.reload(); // Recargar la página
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error al eliminar la multimedia',
+                text: this.unResultado.msg,
+              });
+  
+              this.unaAccion = 'Error:';
+              this.unMensaje = this.unResultado.msg;
+              setTimeout(() => (this.unMensaje = ''), 3000);
+            }
+          },
+          (error: any) => {
+            console.error(error);
+          }
+        );
       }
-      , (error: any) => {
-        console.error(error)
-      }
-    );
-    
+    });
   }
+  
 }

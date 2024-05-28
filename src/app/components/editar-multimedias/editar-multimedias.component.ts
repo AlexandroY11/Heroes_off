@@ -103,9 +103,9 @@ export class EditarMultimediasComponent {
           setTimeout(() => (this.unMensaje = ''), 3000);
 
           Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: this.unResultado.msg,
+            icon: 'success',
+            title: 'Multimedia actualizada',
+            text: "Actualizado correctamente",
           });
 
           this.router.navigate(['/lista-multimedias']);
@@ -135,9 +135,9 @@ export class EditarMultimediasComponent {
           setTimeout(() => (this.unMensaje = ''), 3000);
 
           Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: this.unResultado.msg,
+            icon: 'success',
+            title: 'Multimedia creada',
+            text: "Multimedia creada correctamente",
           });
 
           this.router.navigate(['/lista-multimedias']);
