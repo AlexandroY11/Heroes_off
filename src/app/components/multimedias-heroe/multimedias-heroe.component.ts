@@ -3,6 +3,7 @@ import { MultimediasHeroeInterface } from '../../interfaces/multimedias.interfac
 import { HeroesBDService } from '../../services/heroes-bd.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MultheroeService } from '../../services/multheroe-service.service';
 
 @Component({
   selector: 'app-multimedias-heroe',
@@ -20,6 +21,7 @@ export class MultimediasHeroeComponent implements OnInit {
 
   constructor(
     private dataBD: HeroesBDService,
+    private data: MultheroeService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -42,32 +44,28 @@ export class MultimediasHeroeComponent implements OnInit {
     });
   }
 
-  eliminarMult(idMultimedia: string) {
-    if (!this.idHeroe) return;
-
-    console.log("ID A BORRAR: " + idMultimedia);
-    const multimediaHeroe = { 
-      _id: idMultimedia, 
-      IdHeroe: '', 
-      IdMultimedia: '' 
-    };
-
-    this.dataBD.crudMultimediasHeroe(multimediaHeroe, 'eliminar').subscribe(
+  eliminarMult(unIdHeroe:any) {
+    console.log("ID A BORRAR: "+unIdHeroe);
+    this.data.crud_multimediasHeroes(unIdHeroe, 'eliminar').subscribe(
       (res: any) => {
         this.unResultado = res;
 
-        if (this.unResultado.Ok === true) {
+        //console.log(this.unResultado);
+        if (this.unResultado.Ok == true) {
+
           Swal.fire({
-            icon: 'info',
+            icon: 'success',
             title: 'Information',
-            text: 'Relacion Eliminada',
+            text: 'Eliminado correctamente',
           });
 
           this.unaAccion = 'Mensaje:';
           this.unMensaje = 'Heroe Eliminado';
           setTimeout(() => (this.unMensaje = ''), 3000);
 
-          this.ngOnInit();
+
+          this.ngOnInit() ;
+
         } else {
           Swal.fire({
             icon: 'info',
@@ -75,13 +73,14 @@ export class MultimediasHeroeComponent implements OnInit {
             text: this.unResultado.msg,
           });
 
+
           this.unaAccion = 'Error:';
           this.unMensaje = this.unResultado.msg;
           setTimeout(() => (this.unMensaje = ''), 3000);
         }
-      },
-      (error: any) => {
-        console.error(error);
+      }
+      ,(error:any) => {
+        console.error(error)
       }
     );
   }
