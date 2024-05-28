@@ -3,7 +3,7 @@
     
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group" role="group" aria-label="Third group">
-            <button (click)="nuevaMultimedia()" type="button" class="btn btn-outline-success">
+            <button (click)="NuevoMult()" type="button" class="btn btn-outline-success">
                 <i class="fa fa-plus"></i>Nueva Multimedia de Heroe
             </button>
         </div>
@@ -27,8 +27,8 @@
                 <td *ngIf="multimedia.IdMultimedia.url">{{multimedia.IdHeroe._id}} ({{multimedia.IdHeroe.nombre}})</td>
                 <td *ngIf="multimedia.IdMultimedia.url">{{multimedia.IdMultimedia._id}}</td>
                 <td>
-                    <button (click)="editarMultimedia(multimedia.IdMultimedia._id)" type="button" class="btn btn-outline-warning">Editar</button>
-                    <button (click)="eliminarMultimedia(multimedia.IdMultimedia._id)" type="button" class="btn btn-outline-danger">Eliminar</button>
+                    <button (click)="editarMult(multimedia._id)" type="button" class="btn btn-outline-warning">Editar</button>
+                    <button (click)="eliminarMult(multimedia)" type="button" class="btn btn-outline-danger">Eliminar</button>
                 </td>
             </tr>
         </tbody>

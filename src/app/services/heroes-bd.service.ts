@@ -193,4 +193,65 @@ export class HeroesBDService {
     );
   }
 
+  //METODOS SANTIAGO
+
+  getHeroeMult(id:number):any{
+    console.log("Entre url heroes relacion multimedias")
+    var headers_object = new HttpHeaders().set('x-token', this.leerToken());
+
+    //console.log(headers_object);
+
+    //let url1 = URL_SERVICIOS_MONGODB + "/heroes";
+
+    let url = `${URL_SERVICIOS_MONGODB}/multimediasheroe/${id}`;
+
+    console.log("ruta "+url);
+
+    return this.http.get(url).pipe(
+      map((data) => {
+        console.log("Data Inicial",data);
+        return data;
+      })
+    );
+  }
+
+  getHeroesSantiago(): //Observable<Heroe[]>
+  any {
+    var headers_object = new HttpHeaders().set('x-token', this.leerToken());
+
+    //console.log(headers_object);
+
+    //let url1 = URL_SERVICIOS_MONGODB + "/heroes";
+
+    let url = `${URL_SERVICIOS_MONGODB}/heroes`;
+
+    //console.log(url);
+
+    return this.http.get(url).pipe(
+      map((data) => {
+        console.log(data);
+        return data;
+      })
+    );
+  }
+
+  getHeroesMult():any{
+    var headers_object = new HttpHeaders().set('x-token', this.leerToken());
+
+    //console.log(headers_object);
+
+    //let url1 = URL_SERVICIOS_MONGODB + "/heroes";
+
+    let url = `${URL_SERVICIOS_MONGODB}/multimedias`;
+
+    console.log(url);
+
+    return this.http.get(url).pipe(
+      map((data) => {
+        console.log("Data Inicial",data);
+        return data;
+      })
+    );
+  }
+
 }

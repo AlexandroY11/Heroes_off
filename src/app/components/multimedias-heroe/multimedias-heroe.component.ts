@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class MultimediasHeroeComponent implements OnInit {
   multimedias: MultimediasHeroeInterface[] = [];
+  id!: number;
   idHeroe: string | null = null;
   nombreHeroe: string = '';
   unResultado: any;
@@ -41,7 +42,7 @@ export class MultimediasHeroeComponent implements OnInit {
     });
   }
 
-  eliminarMultimedia(idMultimedia: string) {
+  eliminarMult(idMultimedia: string) {
     if (!this.idHeroe) return;
 
     console.log("ID A BORRAR: " + idMultimedia);
@@ -85,11 +86,10 @@ export class MultimediasHeroeComponent implements OnInit {
     );
   }
 
-  editarMultimedia(id: string) {
-    this.router.navigate(['/editar-multimedia-heroe', id]);
+  editarMult(unIdHeroe:any){
+    this.router.navigate(['/editar-multimedia-heroe', unIdHeroe]);
   }
-
-  nuevaMultimedia() {
-    this.router.navigate(['/editar-multimedia-heroe', 'nuevo']);
+  NuevoMult(){
+    this.router.navigate(['/editar-multimedia-heroe', 'nuevo'], { state: { data: this.idHeroe  } });
   }
 }
